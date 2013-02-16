@@ -6,7 +6,7 @@ import org.junit.runner.RunWith
 import main._
  
 @RunWith(classOf[JUnitRunner])
-class tests extends FunSuite {
+class ExprTests extends FunSuite {
 	
 	test("When I add two Number expressions, value should sum the two numbers.") {
 	  val x = new Num(2)
@@ -34,7 +34,7 @@ class tests extends FunSuite {
 	  assert( 1 === new Num(100).Minus(new Num(99)).value)
 	}
 	
-	test("When I multiple two number expressions x and y, the value should equate to x * y"){
+	test("When I multiply two number expressions x and y, the value should equate to x * y"){
 	  
 	  assert( 16 === new Num(4).Times(new Num(4)).value)
 	}
