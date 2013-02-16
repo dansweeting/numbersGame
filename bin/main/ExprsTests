@@ -1,0 +1,32 @@
+package main
+
+import org.scalatest.junit.JUnitRunner
+import org.scalatest.FunSuite
+import org.junit.runner.RunWith
+import main._
+ 
+@RunWith(classOf[JUnitRunner])
+class tests extends FunSuite {
+	
+	test("When I add two Number expressions, value should sum the two numbers.") {
+	  val x = new Num(2)
+	  val y = new Num(2)
+	  
+	  assert(4 === x.Plus(y).value)
+	}
+	
+	test("When I add two Number expressions, toString should describe the expression.") {
+	  val x = new Num(2)
+	  val y = new Num(3)
+	  
+	  assert("2 + 3" === x.Plus(y).toString())
+	}
+	
+	test("When I add a combination of expressions, toString should describe the whole expression") {
+	  val x = new Num(2)
+	  val y = new Num(4)
+	  
+	  assert("2 + 4 + 1" === x.Plus(y).Plus(new Num(1)).toString())
+	}
+}
+
