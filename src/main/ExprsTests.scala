@@ -19,14 +19,14 @@ class ExprTests extends FunSuite {
 	  val x = new Num(2)
 	  val y = new Num(3)
 	  
-	  assert("2 + 3" === x.Plus(y).toString())
+	  assert("(2 + 3)" === x.Plus(y).toString())
 	}
 	
 	test("When I add a combination of expressions, toString should describe the whole expression") {
 	  val x = new Num(2)
 	  val y = new Num(4)
 	  
-	  assert("2 + 4 + 1" === x.Plus(y).Plus(new Num(1)).toString())
+	  assert("((2 + 4) + 1)" === x.Plus(y).Plus(new Num(1)).toString())
 	}
 	
 	test("When I subtract two number expressions x and y, the value should equate to x - y"){
