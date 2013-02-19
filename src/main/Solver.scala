@@ -1,14 +1,27 @@
 package main
-import main.Countdown._
+import main._
 
-class Solver {
-  def Solve( state: CountdownState, target: Int) : CountdownState = {
+class Solver(ints: List[Int]) {
+  
+  def SolveFor(target: Int) = {
+    def initialState = new NumbersGameState(ints.map(new Num(_)))
+    def searchTraversal = new Search(initialState).Traverse
     
-    def isSolved(cs: CountdownState) = {
-      cs.expressions.exists(_.value == target)
+    def stateContainsSolution(state: State) = {
+      state.asInstanceOf[NumbersGameState].expressions.exists( _.value == target )
     }
     
-    lazy val solutions = new Search(state).Traverse.map(_.asInstanceOf[CountdownState]).filter(isSolved)
-    solutions(0)
+    def statesContainsSolution(state: List[State]) = {
+      state.exists(stateContainsSolution)
+    }
+    
+    val traversalWithSolution = new Search(initialState).Traverse.filter(statesContainsSolution)
+    if (traversalWithSolution.isEmpty) {
+      List()
+    }
+    else {
+      def states = traversalWithSolution(0).filter(stateContainsSolution).map(_.asInstanceOf[NumbersGameState])
+      states.flatten(_.expressions).filter(_.value == target)
+    }
   }
 }
