@@ -1,3 +1,5 @@
+bin
+
 *.class
 *.log
 
@@ -11,3 +13,8 @@ project/plugins/project/
 
 # Scala-IDE specific
 .scala_dependencies
+*.class
+
+.worksheet/bin/main/temp$$anonfun$main$1$$anonfun$1.class
+
+.worksheet/bin/main/temp$$anonfun$main$1.class

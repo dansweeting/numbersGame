@@ -1,14 +1,17 @@
 package main
-
-class Search(startPoint: State) {
-	def Traverse : Stream[List[State]] = {
-		def iter(states: List[State]) : Stream[List[State]] = {
-		  val nextGen = states.map(_.neighbours).flatten
-		  nextGen match {
-		    case Nil => Stream.Empty
-		    case _ => nextGen #:: iter(nextGen)
-		  }
-		}
-		iter(List(startPoint)) 
+import scala.annotation.tailrec
+class Search(startPoint: State, isTarget: State => Boolean = null) {
+	
+	def Invoke : List[State] = { 
+	  
+	  @tailrec 
+	  def iter(states: List[State]) : List[State] = states match {
+	    case Nil => Nil
+	    case _ => {
+	      if (states.exists(isTarget)) states else iter(states.flatten(_.neighbours)) 
+	    }  
+	  }
+	  iter(List(startPoint))
 	}
+	
 }

@@ -12,23 +12,30 @@ class SearchTests extends FunSuite {
 		def neighbours = _neighbours
 	}
   
-	test("When a state has no neighbouring moves, Traverse should return an empty stream.") {
-	  
+	test("When a state satisfies the initial target condition, Invoke should return the state.") {
 	  val state = new StubState("No neighbours")  
-	  val search = new Search(state).Traverse.toList
-	
-	  assert( search.length === 0)
-	}
-	
-	test("When a state has one neighbouring move, Traverse should return the state in a stream") {
+	  val search = new Search(state, (x) => true ).Invoke
 	  
-	  val state = new StubState("I have one neighbour", List(new StubState("Here's the neighbour")))  
-	  val search = new Search(state).Traverse.flatten( x => x).map( _.asInstanceOf[StubState])
-	
-	  assert( search.length === 1)
-	  assert( search(0).name === "Here's the neighbour")
-	 
+	  assert(search(0).asInstanceOf[StubState].name === state.name)
 	}
 	
+	test("When a state's immediate neighbour satisfies the initial target condition, Invoke should return the state that satisfies the condition.") {
+	  
+	  val neighbour = new StubState("Neighbouring state")
+	  val state = new StubState("InitialState",List(neighbour))
+	  
+	  def isTargetState(state:State) = state.asInstanceOf[StubState].name == neighbour.name
+	  
+	  val search = new Search(state, isTargetState ).Invoke
+	  
+	  assert(search(0).asInstanceOf[StubState].name === neighbour.name)
+	}
+	
+	test("When a state and its neighbours do not satisfy the target condition, Invoke should return an empty list") {
+	  val state = new StubState("No neighbours")  
+	  val search = new Search(state, (x) => false ).Invoke
+	  
+	  assert(search.isEmpty === true)
+	}
 }
 
