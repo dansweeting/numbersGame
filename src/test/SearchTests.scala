@@ -16,7 +16,7 @@ class SearchTests extends FunSuite {
 	  val state = new StubState("No neighbours")  
 	  val search = new Search(state, (x) => true ).Invoke
 	  
-	  assert(search.asInstanceOf[StubState].name === state.name)
+	  assert(search(0).asInstanceOf[StubState].name === state.name)
 	}
 	
 	test("When a state's immediate neighbour satisfies the initial target condition, Invoke should return the state that satisfies the condition.") {
@@ -28,7 +28,14 @@ class SearchTests extends FunSuite {
 	  
 	  val search = new Search(state, isTargetState ).Invoke
 	  
-	  assert(search.asInstanceOf[StubState].name === neighbour.name)
+	  assert(search(0).asInstanceOf[StubState].name === neighbour.name)
+	}
+	
+	test("When a state and its neighbours do not satisfy the target condition, Invoke should return an empty list") {
+	  val state = new StubState("No neighbours")  
+	  val search = new Search(state, (x) => false ).Invoke
+	  
+	  assert(search.isEmpty === true)
 	}
 }
 
