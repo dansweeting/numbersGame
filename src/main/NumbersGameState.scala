@@ -5,11 +5,16 @@ class NumbersGameState ( val expressions: List[Expression]) extends State {
   
 	def AllOperations(x:Expression,y:Expression):List[Expression] = {
 	  
+		def isValidOperation (expr : BinaryExpression) : Boolean = {
+		  expr.lhs.value >= expr.rhs.value
+		}
+	  
 		def simpleOperations = List(
 		    new Addition(x,y),
 			new Subtraction(x,y),
 			new Subtraction(y,x),
 			new Multiplication(x,y))
+			.filter(isValidOperation)
 			
 		def divisionOperation = {
 		  val num = if (x.value > y.value) x else y
