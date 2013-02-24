@@ -13,7 +13,7 @@ class NumbersGameStateTests extends FunSuite {
 	  
 	  val expressions = List(new Num(2),new Num(3))
 	  val state = new NumbersGameState(expressions,1)
-	  val neighbours = state.neighbours.map(_.asInstanceOf[NumbersGameState])
+	  val neighbours = state.neighbours.map(_.asInstanceOf[NumbersGameState]).toList
 
 	  assert( neighbours.length === 3)
 	  assert( neighbours.forall(_.expressions.length == 1))
@@ -26,7 +26,7 @@ class NumbersGameStateTests extends FunSuite {
 	  
 	  val expressions = List(new Num(5),new Num(25))
 	  val state = new NumbersGameState(expressions,1)
-	  val neighbours = state.neighbours.map(_.asInstanceOf[NumbersGameState])
+	  val neighbours = state.neighbours.map(_.asInstanceOf[NumbersGameState]).toList
 	  
 	  assert( neighbours.length === 4)
 	  assert( neighbours.forall(_.expressions.length == 1))

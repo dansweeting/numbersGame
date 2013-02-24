@@ -2,16 +2,19 @@ package main
 import scala.annotation.tailrec
 class Search(startPoint: State) {
 	
-	def Invoke : List[State] = { 
+	def Invoke : Iterable[State] = { 
 	  
 	  @tailrec 
-	  def iter(states: List[State]) : List[State] = states match {
-	    case Nil => Nil
-	    case _ => {
-	      Console.out.append(states.length + "\n")
-	      if (states.exists(_.isTarget)) states else iter(states.flatten(_.neighbours)) 
-	    }  
+	  def iter(states: Iterable[State]) : Iterable[State] = {
+	  	
+	  	if (states isEmpty) return List()
+	    
+		if (states.exists(_.isTarget)) 
+			states
+		else 
+			iter(states.flatten(_.neighbours)) 
 	  }
+	  
 	  iter(List(startPoint))
 	}
 	

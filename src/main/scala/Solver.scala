@@ -3,7 +3,7 @@ import main._
 
 class Solver(ints: List[Int]) {
   
-  def SolveFor(target: Int) = {
+  def SolveFor(target: Int) : Iterable[Expression]  = {
     
     def initialState = new NumbersGameState(ints.map(new Num(_)), target)
     

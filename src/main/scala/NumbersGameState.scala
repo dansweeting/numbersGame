@@ -30,7 +30,7 @@ class NumbersGameState ( val expressions: List[Expression], target: Int) extends
 		simpleOperations ::: divisionOperation ::: multiplicationOperation
 	}
 	
-	def neighbours : List[NumbersGameState] = {
+	def neighbours : Iterable[NumbersGameState] = {
 		if (expressions isEmpty) return Nil
 
 		  
