@@ -33,4 +33,11 @@ class SolverTests extends FunSuite {
 	  
 	  assert(0 === solution.length)
 	}
+
+	test("Should solve 952") {
+	  val solver = new Solver(List(100,75,50,25,6,3))
+	  val solution = solver.SolveFor(952)
+	  
+	  assert(solution.isEmpty === false)
+	}
 }

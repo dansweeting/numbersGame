@@ -3,31 +3,34 @@ import main._
 
 class NumbersGameState ( val expressions: List[Expression]) extends State {
   
-	def AllOperations(x:Expression,y:Expression):List[Expression] = {
+	def AllOperations(lhs:Expression,rhs:Expression):List[Expression] = {
 	  
-		def isValidOperation (expr : BinaryExpression) : Boolean = {
-		  expr.lhs.value >= expr.rhs.value
-		}
-	  
+	  	val min = List(lhs,rhs).sortBy(_.value).head	
+	  	val max = if (lhs == min) rhs else lhs
+
 		def simpleOperations = List(
-		    new Addition(x,y),
-			new Subtraction(x,y),
-			new Subtraction(y,x),
-			new Multiplication(x,y))
-			.filter(isValidOperation)
+		    new Addition(min,max),
+			new Subtraction(max,min))
+			.filter(_.value > 0)
 			
 		def divisionOperation = {
-		  val num = if (x.value > y.value) x else y
-		  val denom = if (x.value <= y.value) x else y
-		  
-		  if (denom.value == 0) List()
-		  if (num.value % denom.value == 0) List(new Division(x,y)) else List()
+		  if ( min.value > 1 && max.value % min.value == 0) 
+		  	List(new Division(max,min)) 
+		  else 
+		  	List()
+		}
+
+		def multiplicationOperation = {
+			if ( min.value > 1 && max.value > 1) 
+				List(new Multiplication(min,max)) 
+			else 
+				List()
 		}
 		
-		(simpleOperations ::: divisionOperation).filter(_.value > 0)
+		simpleOperations ::: divisionOperation ::: multiplicationOperation
 	}
 	
-	def neighbours = expressions match {	
+	def neighbours = expressions match {
 		  case head :: Nil => Nil
 		  case _ =>
 				for {
