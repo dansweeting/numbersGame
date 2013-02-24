@@ -9,7 +9,8 @@ import org.scalatest.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
 class SolverTests extends FunSuite {
-	test("Should find solutions by adding and multiplying") {
+
+	/*test("Should find solutions by adding and multiplying") {
 	  
 	  val solver = new Solver(List(2,2,7))
 	  val solution = solver.SolveFor(4)
@@ -32,7 +33,7 @@ class SolverTests extends FunSuite {
 	  val solution = solver.SolveFor(99)
 	  
 	  assert(0 === solution.length)
-	}
+	}*/
 
 	test("Should solve 952") {
 	  val solver = new Solver(List(100,75,50,25,6,3))

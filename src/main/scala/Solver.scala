@@ -5,10 +5,9 @@ class Solver(ints: List[Int]) {
   
   def SolveFor(target: Int) = {
     
-    def initialState = new NumbersGameState(ints.map(new Num(_)))
-    def isTarget(state: State) = state.asInstanceOf[NumbersGameState].expressions.exists(_.value == target)
+    def initialState = new NumbersGameState(ints.map(new Num(_)), target)
     
-    def allStatesContainingTarget = new Search(initialState,isTarget).Invoke.map(_.asInstanceOf[NumbersGameState])
+    def allStatesContainingTarget = new Search(initialState).Invoke.map(_.asInstanceOf[NumbersGameState])
     
     def listsFlattenedToExpressions = allStatesContainingTarget.flatten(_.expressions)
     

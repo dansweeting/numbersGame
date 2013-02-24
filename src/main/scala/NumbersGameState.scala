@@ -1,7 +1,7 @@
 package main
 import main._
 
-class NumbersGameState ( val expressions: List[Expression]) extends State {
+class NumbersGameState ( val expressions: List[Expression], target: Int) extends State {
   
 	def AllOperations(lhs:Expression,rhs:Expression):List[Expression] = {
 	  
@@ -30,15 +30,18 @@ class NumbersGameState ( val expressions: List[Expression]) extends State {
 		simpleOperations ::: divisionOperation ::: multiplicationOperation
 	}
 	
-	def neighbours = expressions match {
-		  case head :: Nil => Nil
-		  case _ =>
-				for {
-						pair <- expressions.combinations(2).toList
-						newExpr <- AllOperations(pair(0),pair(1))
-					}
-				yield new NumbersGameState( newExpr :: expressions.filter( x => x.ne(pair(0)) && x.ne(pair(1))))
+	def neighbours : List[NumbersGameState] = {
+		if (expressions isEmpty) return Nil
+
+		  
+		for {
+			pair <- expressions.combinations(2).toList
+			newExpr <- AllOperations(pair(0),pair(1))
 		}
+		yield new NumbersGameState( newExpr :: expressions.filter( x => x.ne(pair(0)) && x.ne(pair(1))), target)
+	}
+
+	def isTarget = expressions.exists(_.value == target)
 	
 	override def toString = "{" + expressions.mkString(",") + "}"
 }
