@@ -14,3 +14,4 @@ def exprs = new Solver(List(25,50,75,100,3,6)).SolveFor(280)
   exprs.map( x => x.toString() + " = " + x.value ).mkString("\n")
                                                   //> res0: String = ((((100 - 6) * 75) - 50) / 25) = 280
 
+More text
